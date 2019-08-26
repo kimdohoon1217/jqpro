@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<link rel="stylesheet" href="../css/mystyle.css">
+		<script src="../js/jquery-3.4.1.min.js"></script>
+		<script>
+			$(function(){
+				$('#btn1').on('click', function(){
+					// h2의 자식 a태그의 스타일에 테두리 설정 - solid				
+					$('h2>a').css('border','3px solid black');
+					// h2의 후손 a태그의 스타일 배경색을 노란색으로 설정
+					$('h2 a').css('background', 'yellow');
+				})
+				
+				$('#btn2').on('click', function(){
+					// h3 다음의 모든 형제중 p태그의 배경색을 변경, 길이지정, 가운데 정렬
+					$('h3~p').css({'background':'yellow'
+								  ,'width':'200px'
+								  ,'text-align':'center'});
+					// h3 다음의 첫번째 형제의 글자를 굵게, 크게
+					$('h3+p').css({'font-weight':'bold'
+								  ,'font-size':'1.5em'});
+				})
+				
+				$('#btn3').on('click', function(){
+					// span태그의 배경색 변경- yellow
+					$('span').css('background','yellow');
+					// div의 모든 후손중  span 태그의 테두리  - red
+					$('div#d1 span').css('border','2px solid red');
+					// div의 바로 다음 자식 span태그의 테두리  - blue
+					$('div#d1>span').css('border','2px solid blue');
+				})
+			})
+		</script>
+	</head>
+	
+	<body>
+		<div class="box">
+			<h1>후손과 자식을 선택</h1>
+			- 자식: $('h2>a')<br>
+			- 후손: $('h2 a') *자식을 포함한 모든 하위 태그<br>
+			<h2>문단 안에 <a>링크</a> 태그가 있다. 두번째  <span><a>링크</a></span>는 손자이다.</h2>
+			<br>
+			<button id="btn1" type="button">실행</button>
+		</div>
+		
+		<div class="box">
+			<h1>후손과 자식을 선택</h1>
+			- 다음 하나의 형제: $('h3+p')<br>
+			- 다음 모든 형제: $('h3~p')<br>
+			<p>형제 선택자 에 대하여</p>
+			<h3> 텔레토비 가족을 소개 합니다</h3>
+			<p> 보라돌이</p>
+			<p> 뚜비</p>
+			<p> 나나 </p>
+			<p>뽀~ </p>
+			<br>
+			<button id="btn2" type="button">실행</button>
+		</div>
+		
+		<div class="box">
+			<p>이 문단에는 <span>스팬</span> 엘리먼트가 있다</p>			 
+			<div id="d1">
+				이 디비젼에도  <span>스팬</span> 엘리먼트가 있다 
+				<p>디비젼의  내부 문단의 <span>스팬</span> 엘리먼트이다 </p>
+				<div>  
+					<p> 내부 디비젼의   다시 문단 속 아주
+						<strong>깊은곳에 </strong>
+						<em> 숨어있는 </em>
+						<span>스팬</span>엘리먼트도 있다 
+					</p>
+				</div>
+			</div> 
+			<br>
+			<button id="btn3" type="button">실행</button>
+		</div>
+	</body>
+</html>

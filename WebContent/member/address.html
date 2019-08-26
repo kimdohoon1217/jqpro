@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+<style>
+	div{
+		float: left;
+	}
+</style>
+
+<script type="text/javascript">
+	$(function (){
+		
+		
+			$.getJSON(
+					'/jqpro/sidoSelect',
+					function(res){
+						code = "";
+						$.each(res, function(i){
+							code += "<option>" + res[i].sido + "</option>";
+						})
+						$('#sido').html(code);
+					}
+			)
+		
+		
+		$("#sido").on('change', function(){
+			si = $(this).val();
+			$.get(
+					'/jqpro/GugunSelect',
+					{'sido' : si}, //서울
+					function(res){
+						code = "";
+						if(res.sw == "OK"){
+							$.each(res.data, function(i,e){
+								code += "<option>" + e.gugun + "</option>";
+							})
+						}else{
+							code += "";
+						}
+						$('#gugun').html(code);
+					},
+					'json'
+				)
+			
+		});
+		
+		$("#gugun").on('change', function(){
+			si = $("#sido").val();
+			gugun = $(this).val();
+			
+			$.post(
+					'/jqpro/GugunSelect',
+					{'sido' : si, 'gugun': gugun}, //서울
+					function(res){
+						code = "";
+						$.each(res, function(i,e){
+								code += "<option>" + e.dong + "</option>";
+						})
+						$('#dong').html(code);
+					},
+					'json'
+				)
+			
+		});
+		
+		
+	});
+</script>
+</head>
+<body>
+	
+	<div>
+		<select id = "sido">
+		
+		</select>
+	</div>
+	
+	<div>
+		<select id = "gugun">
+		
+		</select>
+	</div>
+	
+	<div>
+		<select id = "dong">
+		
+		</select>
+	</div>
+
+</body>
+</html>

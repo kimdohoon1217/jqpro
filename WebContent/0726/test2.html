@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<!-- CDN방식 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- 실행하기위한 스크립트 -->
+<script>
+// 	function proc1(t){
+// 		//css 에서는 font-size를 사용
+// // 		$(this).css('font-size', '2.0em');
+// 		//script에서는 fontSize라고 쓴다.
+// 		t.style.fontSize = "1.5em";
+// 	}
+	
+	$(function(){
+// 		document.getElementByTagName('p');
+		$('p').on('click', function(){
+			//객체를 this로 받는다
+			$(this).css('font-size', '+=5px')
+			
+		})
+	})
+	
+</script>
+</head>
+<body>
+	<!-- <p onclick = "proc1(this)"> 무궁화 꽃이 피었습니다. </p> -->
+	<p> 장미꽃도1 피었습니다. </p>
+	<p> 장미꽃도2 피었습니다. </p>
+	<p> 장미꽃도3 피었습니다. </p>
+	<p> 장미꽃도4 피었습니다. </p>
+	<p> 장미꽃도5 피었습니다. </p>
+	
+	
+</body>
+</html>

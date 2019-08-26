@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<style>
+	img{
+		width : 100px;
+		height : 100px;
+	}
+
+</style>
+
+<script type="text/javascript">
+	$(function (){
+			$('#btn1').click(function(){
+				
+			a = setInterval(function(){
+				$('img:first').appendTo($('#result1'));
+				}, 500);	
+				
+				$(this).prop('disabled', true);
+				$(this).css('background', 'white');
+				
+			});
+			
+			$('#btn2').click(function(){
+				clearInterval(a);
+				
+				
+				$('#btn1').prop('disabled', false);
+				$('#btn1').css('background', 'blue');
+			});
+			
+			
+			//클릭한 p태그의 문자열 가져오기
+			$('#result2 p').click(function(){
+				var vtxt = $(this).text();
+				
+				//새로운 이미지를 생성할때  이미지태그를  properties를 지정해줘야함
+				var vimg = $('<img>', {
+					'src': '../images/' + vtxt + ".jpg",
+					'width' : '100px;',
+					'height' : '100px'
+				});
+						
+				//클릭한 p태그의 안쪽으로 추가한다.
+				//p태그가 추가할 영역이기때문에 append를 해줘야한다
+// 				$(this).append(vimg);
+				
+				//변수는 ''를 붙이지않는다.
+				$(vimg).appendTo(this);
+				
+			})
+			
+			
+			
+	});
+</script>
+</head>
+<body>
+
+	<div class = "box">
+		<div id="result1">
+			<img src = "../images/카페라떼.jpg">
+			<img src = "../images/호랑이1.jpg">
+			<img src = "../images/americano.jpg">
+			<img src = "../images/back005.jpg">
+			<img src = "../images/buffet.jpg">
+			<img src = "../images/camera.png">
+			<img src = "../images/chinese.jpg">
+			<img src = "../images/dd.jpg">
+			<img src = "../images/HI.GIF">
+		</div>
+		<!-- <form>가 없으면 type지정안해도됨 전송하는게없기때문  -->
+		<button id = "btn1" type = "button">시작</button>
+		<button id = "btn2" type = "button">종료</button>
+	</div>
+	
+	
+	<div class = "box">
+		<h3>p태그의 문자열을 클릭</h3>
+		- 문자열로 구성된 이미지를 추가한다.
+		<div id="result2">
+			<p title = "대나무숲">대나무숲</p>
+			<p title = "셔틀콕">셔틀콕</p>
+			<p title = "에스프레소">에스프레소</p>
+			<p title = "카페라떼">카페라떼</p>
+			<p title = "단풍">단풍</p>
+		</div>
+		
+	</div>
+	
+
+</body>
+</html>

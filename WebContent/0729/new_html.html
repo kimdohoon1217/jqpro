@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<link rel = "stylesheet" href = "../css/myStyle.css">
+<script src = "../js/jquery-3.4.1.min.js"></script>
+<script>
+	//window.onload를 하는 function()
+	$(function(){
+		$('#but1').on('click', function(){
+			//새로운 html생성
+			
+			vptag = $('<p>무궁화 꽃이 피었습니다.</p>');
+			$('#result1').append(vptag);
+// 			$('#result1').css('font-size', '1.5em').css('font-weight', 'bold')
+// 						 .css('color', 'red');
+
+			//중괄호로 묶을땐 콜론 (:) 을 사용한다.
+			$('#result1').css({'font-size' : '1.5em',
+				'font-weight' : 'bold',
+				'color' : 'red'})
+			
+			/* document.getElementById('result1').innerHTML = vptag */
+		})
+		
+		
+		$('#but2').on('click', function(){
+			
+			imgarr = ["../images/카푸치노.jpg", "../images/가구1.jpg", "../images/가구2.jpg",
+					  "../images/가위_우.PNG", "../images/바위_우.PNG", "../images/대한민국전도.jpg",
+					  "../images/보_좌.PNG", "../images/옷3.jpg", "../images/컴퓨터2.jpg"];
+			
+			
+			
+			
+			//랜덤 발생
+			rand = Math.floor(Math.random() * imgarr.length);
+			
+			
+			//img태그를 생성
+			/* imgtag = $('<img src = "../images" width = "150px" height = "100px" onclick = "proc1()">') */
+			
+			
+			//태그의 속성 properties를 사용한 방법
+			imgtag = $('<img>', {
+				'src' : imgarr[rand], 
+				'width' : '150px',
+				'height' : '100px',
+				
+				//title은 이미지위에 말풍선
+				'title'  : function(){
+					
+					//src 속성값을 가져온다.
+					//getAttribute는 scripte메서드이기 때문에 this를 jQuery로 접근하면 안된다.
+// 					getsrc  = this.getAttribute('src');
+					
+					//jQuery방식으로 src속성값을 가져오는방법
+					getsrc = $(this).attr('src');
+					
+					start = getsrc.lastIndexOf("/");
+					end = getsrc.lastIndexOf(".");
+					
+					//substring을 하면 end는 마지막을 짤라주기때문에 -1를 할필요없다.
+					vtitle = getsrc.substring(start+1, end);
+					
+					//return 을하면 title 속성으로 값이 들어간다.
+					return vtitle
+					
+				},
+				//properties에 onclick를 사용할때
+				'click' : function(){
+					$(this).css('border', '2px solid blue');
+				}
+				
+			})
+			//append 와 appendTo
+			//append 새로운 내용을 추가 ()
+			//appendTo는 ()에게 추가하는
+// 			$('#result2').append(imgtag);
+			$(imgtag).appendTo('#result2');
+			
+		})
+		
+		
+		$('#but3').on('click', function(){
+// 			vdiv = $('div', {});
+// 			$('#result3').append(vdiv);
+			
+			//태그이름을 사용하기 때문에 <>를 붙이고 </> 열고 닫아야한다. ??
+			$('<div><div/>', {
+				'text' : '클릭하세요',
+				'click' : function(){
+					$(this).css('border', '5px solid green');
+					
+				}
+			}).appendTo('#result3');
+		})
+		
+		
+		
+		
+	})
+</script>
+
+
+</head>
+<body>
+<div class = "box">
+	<h2>$('html')</h2>
+	- 새로운 html요소를 생성<br>
+	- div result1 안에 추가<br>
+	<br><br>
+	<button id = "but1" type = "button">실행</button>
+	<div id = "result1"></div>
+</div>
+
+
+<div class = "box">
+	<h2>$('html', {properties})</h2>
+	- img 요소를 생성<br>
+	- 속성 : src, width, height, 클릭함수,
+	- div result2안에 추가<br>
+	<br><br>
+	<button id = "but2" type = "button">실행2</button>
+	<div id = "result2"></div>
+</div>
+
+<div class = "box">
+	<h2>$('html', {properties})</h2>
+	- div 요소를 생성<br>
+	- 속성 : width, height, 클릭함수,
+	- div result3안에 추가<br>
+	<br><br>
+	<button id = "but3" type = "button">실행3</button>
+	<div id = "result3"></div>
+</div>
+
+
+
+</body>
+</html>

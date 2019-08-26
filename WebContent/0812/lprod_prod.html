@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<style>
+	table {
+		border-collapse: collapse;
+	
+	}
+	
+	td {
+		width: 250px;
+		height: 40px;
+		text-align: center;
+	}
+	
+	select{
+		margin-bottom: 10px;
+	}
+	
+	button{
+		margin-top : 20px;
+		margin-left: 100px;
+	}
+	
+	#detail{
+		margin-left: 50px;
+		margin-right: 50px;
+	}
+	
+</style>
+<script>
+	$(function(){
+		$('button').on('click', function(){
+			
+			/* $.ajax({
+				url : 'jqpro/LProdList',
+				type : 'get',
+				dataType : 'json',
+				success : function(res){
+					
+				},
+				error : function(xhr){
+					
+				}
+			}) */
+			
+			$.getJSON(
+					'/jqpro/LprodSelect',
+					function(res){
+						code = "";
+						$.each(res, function(i){
+							code += "<option value='" + res[i].gu + "'>" + res[i].nm + "</option>";
+						})
+						$('#lprod').html(code);
+						$("#lprod").trigger('change');
+					}
+			)
+		})
+		
+		$('#lprod').on('change', function(){
+			// option의 value값을 가져온다
+			lprodGu = $(this).val();
+			
+			// 서버로 전송
+			$.get(
+				'/jqpro/ProdServlet',
+				{'lprod_gu' : lprodGu}, //p402
+				function(res){
+					code = "";
+					if(res.sw == "OK"){
+						$.each(res.data, function(i,e){
+							code += "<option value='" + e.id + "'>" + e.name + "</option>";
+						})
+					}else{
+						code += "<option value='0'>데이터 없음</option>";
+						noimg = $('<img>', {
+								'src' : '../images/noImage.png',
+								'width' : '200px',
+								'height' : '200px'
+						});
+						$("#detail").empty().append(noimg);
+					}
+					$('#prod').html(code);
+					//트리거는 이벤트 이름을 적어주고 다음꺼랑 연결시켜준다
+					//트리거는 연속성상에서 동시에 실행된다.
+					$("#prod").trigger('change');
+				},
+				'json'
+			)
+		})
+		
+		$('#prod').on('change', function(){
+			prodId = $(this).val();
+			
+			// 서버로 전송한다
+			$.post(
+				'/jqpro/ProdServlet',
+				{ "prod_id" : prodId },
+				function(res){
+					code = "<table class = 'table table-hover table-striped' border='1'>";
+					code += "<tr><td>항목</td><td>내용</td></tr>";
+					$.each(res, function(key, value){
+						code += "<tr><td> Prod_" + key + "</td><td>" + value + "</td></tr>";
+					})
+					code += "</table>";
+					
+					$('#detail').html(code);
+				},
+				'json'
+			)
+		})
+		
+	})
+</script>
+</head>
+<body>
+	<!-- <button type="button">실행</button>
+	<br><br>
+	<h1>제품리스트</h1>
+	
+	<table border="1">
+		<tr>
+			<td>
+				<h3>제품 분류 리스트</h3>
+				<select name="lprod" id="lprod">
+				</select>
+				<br>
+			</td>
+			<td>
+				<h3>상품 리스트</h3>
+				<select name="prod" id="prod">
+				</select>
+				<br>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2">
+				<div id="detail"></div>
+			</td>
+		</tr>
+	</table> -->
+	
+	<button class="btn btn-primary" type="button">실행</button>
+	<br><br>
+	<div class="container">
+	  <h2>제품리스트</h2>
+	  <form>
+	    <div class="form-group">
+	      <label for="lprod">제품 목록 리스트:</label>
+	      <select class="form-control" id="lprod">
+	
+	      </select>
+	      <br>
+	     </div>
+	  </form>
+	  
+	   <form>
+	    <div class="form-group">
+	      <label for="prod">상품 리스트:</label>
+	      <select class="form-control" id="prod">
+	
+	      </select>
+	      <br>
+	     </div>
+	  </form>
+	</div>
+	<br><br>
+	
+	<div id = "detail"></div>
+	
+	
+	
+</body>
+</html>

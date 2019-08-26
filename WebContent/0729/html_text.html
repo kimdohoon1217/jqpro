@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src = "../js/jquery-3.4.1.min.js"></script>
+
+<link rel = "stylesheet" href = "../css/myStyle.css">
+
+<script>
+	$(function(){
+		$('#but1').on('click', function(){
+			//모든 내용 가져오기
+			a = $('body').html();
+			
+			//가져온 내용 출력하기
+			$('#result1').html(a);
+// 			$('#result1').text(a);
+			
+			/* document.getElementById('result1').innerHTML = a; */
+		})
+		
+		$('#but2').on('click', function(){
+			//모든 내용 가져오기 - html태그 포함 x
+			a = $('body').text();
+			
+			$('#result2').html(a);
+// 			$('#result2').text(a);
+		})
+		
+		
+		$('#but3').on('click', function(){
+			//this = but3 에 부모의 div 의 p태그의 html태그와 내용을 a에 담는다.
+			a = $('p', $(this).parent()).html();
+			$('#result3').html(a);
+		})
+		
+		
+		$('#but4').on('click', function(){
+			a = $('p', $(this).parent()).text();
+			$('#result4').html(a);
+		})
+		
+		
+		//한번읽어보기..
+		$('#but5').on('click', function(){
+			
+			res = "";
+			$('p', $(this).parent()).each(function(i){ 
+				
+				//반복을돌고있는것들 = this
+				res += i + "번째 요소"  + $(this).html() + "<br>";
+				
+// 				if(i == 2){
+// 					res = i + "번째 요소"  + $(this).html() + "<br>";
+// 					return;
+// 				}
+			})
+			$('#result5').html(res);
+			//$('#result5').text(res);
+		})
+		
+		
+	})
+
+</script>
+
+</head>
+<body>
+<div class = "box">
+  <h2>HTML() / TEXT()</h2>
+  - $('body').html() 태그를 포함한 문장을 가져오기 <br>
+  - $('body').text() 태그포함 하지 않고 문장만 가져오기<br>
+  <br><br>
+	<p>1<a>무궁화</a></p>
+	<p>2<a>삼천리</a></p>
+	<p>3<a>금수강산</a></p> 
+	  
+	<button id = "but1" type = "button">html 가져오기</button>
+	<button id = "but2" type = "button">text 가져오기</button>
+	
+	<div id = "result1"></div>
+	<div id = "result2"></div>
+	
+</div>
+
+
+<div class = "box">
+  <h2>HTML() / TEXT()</h2>
+  - $('p').html() 태그를 포함한 문장을 가져오기, p가 여러개일 경우 첫번째것만 가져온다 <br>
+  - $('p').text() 태그포함 하지 않고 문장만 가져오기, p가 여러개 일 경우 전체 p를 대상으로 가져온다<br>
+  <br><br>
+	<p>1<a>홍길동</a></p>
+	<p>2<a>개나리</a></p>
+	<p>3<a>진달래</a></p> 
+	  
+	<button id = "but3" type = "button">html 가져오기</button>
+	<button id = "but4" type = "button">text 가져오기</button>
+	<div id = "result3"></div>
+	<div id = "result4"></div>
+	
+</div>
+
+
+<div class = "box">
+  <h2>HTML() </h2>
+  - $('p').html() 태그를 포함한 문장을 가져오기, p가 여러개일 경우 첫번째것만 가져온다 <br>
+  - 모든 p를 대상으로 가져오기를 실행 할때는 반복문을 사용
+  - $('선택자').each(function(매개변수1, 매개변수2) {  })
+  - $.each('선택자', function(매개변수1, 매개변수2) {  })
+  - 매개변수1 : 인덱스를 나타낸다.
+  - 매개변수2 : 인덱스번째의 값을 받는 변수
+  <br><br>
+	<p>1<a>홍길동</a></p>
+	<p>2<a>개나리</a></p>
+	<p>3<a>진달래</a></p> 
+	  
+	<button id = "but5" type = "button">모든 p html 가져오기</button>
+	<div id = "result5"></div>
+	
+</div>
+
+
+
+</body>
+</html>

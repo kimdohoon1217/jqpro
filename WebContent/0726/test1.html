@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<!-- jquery를 연결하는 부분과 코딩부분은 따로나눠서 해야한다. -->
+<script src = "../js/jquery-3.4.1.min.js"></script>
+
+<script>
+	//1) Jquery 는 -> $표시랑 같다.
+// 	window.onload = function(){
+// 		$('#hh1').css('background', 'blue');
+// 	}
+	
+	//2)jQuery(document).ready(function(){})
+/* 	$(document).ready(function(){
+		$('#hh1').css('background', 'green').css('color', 'yellow');
+	}) */
+	
+	//3) 젤많이 사용할거
+/* 	$(function(){
+		$('#hh1').css('background', 'red').css('color', 'white');
+	})
+ */
+ 
+ 	//4)
+ 	$(function(){
+		$('#hh1').css({'background':'crimson', 'color':'blue'});
+	})
+ 	
+	
+	
+	
+
+</script>
+<!-- <script>
+// window가 로드될때
+	window.onload = function(){
+		document.getElementById('hh1').style.backgroundColor =  "yellow";
+	}
+		
+</script> -->
+
+
+
+<style>
+	#hh1{
+		color : red;
+		
+	}
+	
+	pre{
+		font-size : 1.5em;
+		background : lightblue;
+		border-top : 3px solid blue;
+		border-bottom : 3px solid blue;
+		
+		padding : 20px;
+	}
+	
+</style>
+</head>
+<body>
+	<pre>
+		jquery를 실행하기 위해서 라이브러리가 필요
+		&lt;script src = "../js/jquery-3.4.1.min.js"&gt;&lt;/script&gt;
+		
+		$(document).ready(function(){})
+		$(function(){})
+		
+	</pre>
+
+	<h1 id="hh1">무궁화 꽃이 피었습니다.</h1>
+	<h1>장미 꽃이 피었습니다.</h1>
+	
+	
+</body>
+</html>

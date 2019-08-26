@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<style>
+	img{
+		width  : 100px;
+		height : 100px;
+	}
+
+</style>
+
+
+<script type="text/javascript">
+	$(function (){
+		
+		//맨처음꺼만 얼러트 창이 뜸
+// 		alert($('img').attr('src'));
+		
+		//말풍선은 전체로 적용된다.
+		$('img').each(function(i){
+			
+			//반복문 한번돌리고 img title 에/ function에서 리턴값을 title에 넣으면서 값을 넣어준다.
+			$('img').attr('title', function(){
+				var getimg = $(this).attr('src');
+				var start = getimg.lastIndexOf("/");
+				var end = getimg.lastIndexOf(".");
+				
+				var title = getimg.substring(start+1, end);
+				return title;
+			});
+			
+		})
+			
+	});
+</script>
+</head>
+<body>
+	<img src = "../images/컴퓨터3.jpg">
+	<img src = "../images/셔틀콕.jpg">
+	<img src = "../images/사자1.jpg">
+	<img src = "../images/음악.jpg">
+	<img src = "../images/카푸치노.jpg">
+	
+	
+</body>
+</html>

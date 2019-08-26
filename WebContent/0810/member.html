@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+
+
+<script type="text/javascript">
+	$(function (){
+		$("#btn1").click(function(){
+			
+			$.ajax({
+				url : "/jqpro/MemberSelect",
+				type : "get",
+				dataType : "json",
+				success : function(datas){
+					code = "";
+					code = "<table border = '1'>";
+					code += "<tr><td>이름</td><td>아이디</td><td>이메일</td>";
+					code += "<td>주소</td><td>전화번호</td><td>생일</td><td>zip</td></tr>"
+					$.each(datas, function(i, v){
+							code += "<tr>";
+							code += "<td>" + v.name +"</td>"; 
+							code += "<td>" + v.id +"</td>"; 
+							code += "<td>" + v.addr +"</td>"; 
+							code += "<td>" + v.hp +"</td>"; 
+							code += "<td>" + v.mail +"</td>"; 
+							code += "<td>" + v.bir +"</td>"; 
+							code += "<td>" + v.zip +"</td>"; 
+							code += "</tr>"
+						
+					})
+					code += "</table>";
+					$("#result1").html(code);
+				}
+				
+			});
+			
+			
+		});
+	});
+</script>
+</head>
+<body>
+	<div class = "box">
+		<button id = "btn1" type = "button">멤버리스트</button>
+	<br>
+	<div id = "result1"></div>
+	</div>
+</body>
+</html>

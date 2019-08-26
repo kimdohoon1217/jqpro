@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<style>
+	img{
+		width: 100px;
+		height : 100px;
+	}
+
+</style>
+
+<script type="text/javascript">
+	$(function (){
+		var rand;
+		var a;
+		$('#btn1').click(function(){
+			//var를 쓰지않으면 전역변수로 선언되므로 다른곳에서도 쓸수 있다.
+			a = setInterval(function(){
+			$('img:first').appendTo($('#result1'));
+			}, 500)
+			$('img:eq('+rand+')').css('border', 'none');
+			$(this).prop('disabled', true).css('background', 'white');
+			
+		})
+		
+		$('#btn2').click(function(){
+			clearInterval(a);
+			rand = Math.floor(Math.random() * $('img').length);
+// 			$('img:eq('+rand+')').css('border', '5px solid blue');
+			$('img').filter(':eq('+rand+')').css('border', '5px solid orange');
+			$('#btn1').prop('disabled', false).css('background', 'blue');
+			
+		})
+		
+	});
+</script>
+</head>
+<body>
+	<div class = "box">
+	-시작 버튼 클릭하면 이미지가 돌아간다<br>
+	-종료 버튼 클릭하면 당첨한항목에 테두리를 설정한다.<br>
+	-당첨항목은 랜덤으로 결정한다<br>
+	-다시 시작버튼 클릭하면 테두리 설정을 해제한다<br>
+		<div id="result1">
+			<img src = "../images/카페라떼.jpg">
+			<img src = "../images/호랑이1.jpg">
+			<img src = "../images/americano.jpg">
+			<img src = "../images/back005.jpg">
+			<img src = "../images/buffet.jpg">
+			<img src = "../images/camera.png">
+			<img src = "../images/chinese.jpg">
+			<img src = "../images/dd.jpg">
+			<img src = "../images/HI.GIF">
+		</div>
+		<!-- <form>가 없으면 type지정안해도됨 전송하는게없기때문  -->
+		<button id = "btn1" type = "button">시작</button>
+		<button id = "btn2" type = "button">종료</button>
+	</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<script type="text/javascript">
+	$(function (){
+		
+		$('#btn1').click(function(){
+			
+		//조건을 두개줘야함 사용가능 / 사용불가능 일때 
+		 if($('#btn2').html() == '사용불가능' ) {
+		      $('#btn2').html('사용가능');
+			  $('form :enabled').css('border', '3px solid crimson');
+			 //사용불가능한 btn2을 사용가능 하도록 설정 - prop
+			 //prop는 속성의 조건을 바꿔주는 역활인거같다.(값이 true || false)
+			 $('#btn2').prop('disabled', false).css('background', 'blue');	//사용 가능으로 설정
+			 $('#btn1').prop('disabled', true).css('background', 'green');	//사용불가능으로 설정
+			 $('form :disabled').css('border', 'none');
+		    }
+		    else {
+		      $(this).html('사용불가능');
+		    }
+			
+			
+			
+		
+		})
+		
+		$('#btn2').click(function(){
+// 			   if( $(this).html() == '사용불가능' ) {
+// 			      $(this).html('사용가능');
+// 			    }
+// 			    else {
+// 			      $(this).html('사용불가능');
+// 			    }
+			//form안에 후손들 중 disabled인것들
+			$('form :disabled').css('border', '3px solid lime');
+			$('form :enabled').css('border', 'none');
+			
+			//사용불가능한 btn1을 사용가능하도록 설정
+			$('#btn1').prop('disabled', false).css('background', 'blue');
+			$('#btn2').prop('disabled', true).css('background', 'green');
+			
+		})
+		
+		
+		
+	});
+</script>
+</head>
+<body>
+	<div class= "box">
+		<h3>form 상태 필터</h3>
+		:disabled : 접근불가능<br>
+		:enabled : 접근가능, 모든 요소의 기본값이다.<br>
+		
+		<br>
+		 form의 전송기능 : button ,button type=submit ,<br>
+		 				input type=image ,input type=submit<br>
+		
+		<div>
+			<form action = "test.jsp" method = "post"> 
+				<input type="button" name="disButton" value="Input Button" disabled><br>
+				<input type="checkbox" name="enCheckbox" >체크<br>
+				<input type="file" name="disFile"  ><br>
+				<input type="hidden" name="enHidden"  value=“”> <br>
+				<input type="image" src="../images/image.1.jpg" alt="Submit" ><br>
+				<input type="password"  value="1111" name="enPassword" disabled > <br>
+				<input type="radio" name="disRadio"  value="남" > 남<br>
+				<input type="radio" name="disRadio"  value="여" > 여<br>
+				<input type="reset" name="enReset" value="취소"><br>
+				<input type="submit" name="disSubmit" value="제출" disabled> <br>
+				<input type="text" name="enText" value="input text"  > <br>
+				
+				<select name="disSelect" >
+					<option>Option</option>
+					<option>Option</option>
+					<option>Option</option>
+					<option>Option</option>
+					<option>Option</option>
+				</select><br>
+				
+				<textarea name="enTextarea" rows=10 cols=20 >text</textarea><br>
+				<button name="disButton2" onclick="javascript:alert('이딴거왜만들어놧지얼터');">Button</button><br>
+			</form>
+		</div>
+		
+		<button id = "btn1" type = "button">사용가능</button>
+		<button id = "btn2" type = "button" disabled>사용불가능</button>
+		
+		
+	</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<script type="text/javascript">
+	$(function (){
+		$('img').dblclick(function(){
+			$(this).hide();
+			
+			if($('img:visible').length == 0 ){
+				$('button').show();
+			}
+		});
+		
+		$('button').on('click', function(){
+			$(this).hide();
+			$('img').show();
+		});
+		
+		
+		//원본이미지를 변수에저장해야한다.
+		$('img').hover(function(){
+			//src값이 src2값으로 변경되기 전에 src값을 미리 저장해놓는다.
+			orImg = $(this).attr('src');
+			
+			//src2의 속성값을 가져온다
+			chImg = $(this).attr('src2');
+			
+			//src속성값으로 설정한다.
+			$(this).attr('src', chImg);
+			
+		}, function(){
+			//src 의 속성값을 원래 이미지로 변경해준다.
+			$(this).attr('src', orImg);
+			
+		});
+		
+	});
+</script>
+
+<style>
+	img{
+		width : 100px;
+		height : 100px;
+	}
+	
+	button{
+		display: none;
+	
+	}
+
+</style>
+</head>
+<body>
+	<img src = "../images/back005.jpg" src2="../images/camera.png">
+	<img src = "../images/호랑이1.jpg" src2="../images/burger.jpg">
+	<img src = "../images/풍차.jpg" src2="../images/홍길동3.jpg">
+	<img src = "../images/홍길동.jpg" src2="../images/컴퓨터3.jpg">
+	<img src = "../images/카푸치노.jpg" src2="../images/americano.jpg">
+	<br>
+	<br>
+	<button type = "button">보이기</button>
+</body>
+</html>

@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<script>
+ $(function(){
+	 
+	 $('#txt').on('click', function(){
+		
+		 $.ajax({
+			url : 'text.jsp',
+			type : 'get',
+		    success : function(datas){
+		    	res =  datas.split("/");
+		    	code = "<ul>";
+		    	$.each(res, function(i){
+		    		code += "<li>" +  res[i] + "</li>"
+		    	})
+		    	code += "</ul>";
+		    	$('#result1').html(code);
+		    	
+		    },
+		    error : function(xhr){
+		    	alert("상태 : " + xhr.status);
+		    },
+		    dataType : 'text'
+			 
+		 })
+		 
+	 })
+	
+	 //json 배열로 응답 받기 
+	 $('#jarr').on('click', function(){
+		$.ajax({
+			url : 'jobjarr.jsp',
+			dataType : 'json',
+			success : function(datas){
+				
+				code = "";
+				$.each(datas, function(i){
+					code += "이름 : " + datas[i].name + "<br>";
+					code += "주소 : " + datas[i].addr + "<br>";
+					code += "전화번호 : " + datas[i].tel + "<br>";
+				})
+				$('#result3').html(code);
+			},
+			error : function(req){
+				alert("상태 : " + req.status);
+			}
+		})
+		 
+	 })
+	 
+	 $('#jobj').on('click', function(){
+		$.ajax({  
+			url : 'jobj.jsp',
+			success : function(datas){
+				
+				code = "이름 : " + datas.name + "<br>";
+				code += "주소 : " + datas.addr + "<br>";
+				code += "전화번호 : " + datas.tel + "<br>";
+				
+				$('#result2').html(code);
+			},
+			error : function(xhr){
+				alert('상태 : ' + xhr.status)
+			},
+			dataType : 'json'
+			
+		})
+		
+	 })
+	 
+	$('#jobjarr').on('click', function(){
+		$.ajax({
+			url : "jobjarr.jsp",
+			success : function(datas){
+				code = "<br>";
+				$.each(datas, function(i, v){
+					code += (i+1) + "번째 회원 자료 <br>"
+					code += "이름 : " + v.name + "<br>";
+					code += "주소 : " + v.addr + "<br>";
+					code += "전화번호 : " + this.tel + "<br><br>";
+				});
+				
+				$('#result4').html(code);
+			},
+			dataType: "json"
+			
+			
+		})
+		 
+	}) 
+ })
+</script>
+</head>
+<body>
+ <div class="box">
+  
+   <h3>jQuery 의  Ajax방식으로 전송/응답 실행 </h3>
+   <button type="button" id="txt">text데이타</button>
+   <button type="button" id="jobj">json오브젝트</button>
+   <button type="button" id="jarr">json배열</button>
+   <button type="button" id="jobjarr">json오브젝트베열</button>
+ <br><br>
+ <div id="result1"></div>
+ <div id="result2"></div>
+ <div id="result3"></div>
+ <div id="result4"></div>
+ 
+ 
+ </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

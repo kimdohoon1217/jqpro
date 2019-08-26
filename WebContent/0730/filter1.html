@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<script type="text/javascript">
+	$(function (){
+		$('#btn1').on('click', function(){
+			
+			//first를 하면 맨처음 (div)요소에 들어가기때문에 어떤 요소(원하는곳)인지를 정하고 first를 해야한다..
+			$('li:first, li:last').css('background', 'yellow');
+			
+			//인덱스 선택하는 eq
+			$('li:eq(5)').css('background', 'red');
+			
+			//lt는 인덱스 보다 작은 곳에 (자기자신제외)
+			$('li:lt(4)').css('font-size', '1.5em');
+			
+		})	
+		
+		$('#btn2').on('click', function(){
+			$('#t1 tr:even').css('background', 'white');
+			
+			$('#t1 tr:odd').css('background', 'yellow');
+		})
+		
+		
+		$('#btn3').on('click', function(){
+			$('th').css({'background' : 'black', 'color' : 'white'});
+			
+			$('tr:even', $(this).parent()).css('background', 'green');
+			
+			$('tr:odd', $(this).parent()).css('background', 'blue');
+			
+		})
+		
+		
+		
+	})
+	
+
+
+</script>
+
+<style>
+table {
+	border: 2px solid black;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+td {
+	border: 2px solid black;
+	width: 300px;
+	height: 50px;
+	text-align: center;
+}
+</style>
+
+
+</head>
+<body>
+	<div class="box">
+		<h3>기본 필터</h3>
+		:first, :last, :even, :odd, :eq(index), :gt(index), :lt(index)
+		<div>
+			<ul>
+				<li>one</li>
+				<li>two</li>
+				<li>three</li>
+				<li>four</li>
+				<li>five</li>
+				<li>six</li>
+				<li>seven</li>
+				<li>eight</li>
+				<li>nine</li>
+			</ul>
+		</div>
+
+		<button id="btn1" type="button">실행</button>
+
+	</div>
+
+
+	<div class="box">
+		<h3>기본 필터</h3>
+		:even, :odd
+
+		<div>
+			<table id="t1">
+				<tr>
+					<td>one</td>
+					<td>62만원</td>
+				</tr>
+
+				<tr>
+					<td>two</td>
+					<td>45만원</td>
+				</tr>
+
+				<tr>
+					<td>three</td>
+					<td>33만원</td>
+				</tr>
+
+				<tr>
+					<td>four</td>
+					<td>72만원</td>
+				</tr>
+
+				<tr>
+					<td>five</td>
+					<td>88만원</td>
+				</tr>
+
+				<tr>
+					<td>six</td>
+					<td>49만원</td>
+				</tr>
+
+				<tr>
+					<td>seven</td>
+					<td>28만원</td>
+				</tr>
+
+				<tr>
+					<td>eight</td>
+					<td>98만원</td>
+				</tr>
+
+				<tr>
+					<td>nine</td>
+					<td>37만원</td>
+				</tr>
+
+
+
+
+			</table>
+		</div>
+		<button id="btn2" type="button">실행</button>
+
+	</div>
+
+	<div class="box">
+		<table id="t2">
+			<tr>
+				<th>이름</th>
+				<th>주소</th>
+			</tr>
+
+			<tr>
+				<td>홍길동</td>
+				<td>대전</td>
+			</tr>
+
+			<tr>
+				<td>진달래</td>
+				<td>서울</td>
+			</tr>
+
+			<tr>
+				<td>개나리</td>
+				<td>부산</td>
+			</tr>
+
+			<tr>
+				<td>무궁화</td>
+				<td>대구</td>
+			</tr>
+
+		</table>
+		<button id="btn3" type="button">실행</button>
+
+	</div>
+
+
+
+
+</body>
+</html>

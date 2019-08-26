@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css?family=Black+And+White+Picture|Permanent+Marker&display=swap');
+
+body{
+	font-family: 'Permanent Marker', cursive;
+	font-family: 'Black And White Picture', sans-serif;
+	color : #C94D65;
+}
+
+.rep{
+	height: auto;
+	background: #f8ecec;
+	border: 1px solid gray;
+	margin-top: 2px;
+}

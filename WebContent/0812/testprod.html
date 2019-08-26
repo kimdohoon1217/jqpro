@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+<style>
+	table {
+	 	border-collapse: collapse;
+	}
+	
+	td{
+		width : 250px;
+		height: 40px;
+		text-align: center;  
+	}
+
+</style>
+
+
+<script type="text/javascript">
+	$(function (){
+		$('button').click(function(){
+			
+			$.getJSON(
+				'/jqpro/LprodSelect',
+				function(res){
+					code = "";
+					$.each(res, function(i) {
+						code += "<option value = '" + res[i].gu +"'>" + res[i].nm + "</option>";
+					})
+					$('#lprod').html(code);
+				}
+			)
+		});
+		
+		$("#lprod").on('change', function() {
+			lprodGu = $(this).val();
+			$.get(
+				'/jqpro/testProdServlet',
+				{'lprod_gu' : lprodGu},
+				function(res){
+					code = "";
+					$.each(res, function(i) {
+						code += "<option value = '" + res[i].id +"'>" + res[i].name + "</option>";
+					})
+					$('#prod').html(code);
+				}
+			)
+		})
+		
+		$('#prod').on('change', function(){
+			prodId = $(this).val();
+			
+			$.post(
+				'jqpro/testProdServlet',
+				{"prod_id" : prodId },
+				function(res){
+					code = "<table border = '1'>";
+					code += "<tr><td>항목</td><td>내용</td></tr>";
+					
+					
+				}
+			)
+			
+		})	
+		
+	});
+</script>
+</head>
+<body>
+	<button type="button">실행</button>
+	<br><br>
+	
+	<table border="1">
+		<tr>
+			<td>
+				<select name="lprod" id="lprod">
+					
+				</select>
+			</td>
+			<td>
+				<select name="prod" id="prod">
+				
+				</select>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2">
+				<div id="detail"></div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

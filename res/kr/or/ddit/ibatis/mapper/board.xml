@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org/DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="board">
+ <typeAlias alias="boardVO" type="kr.or.ddit.board.vo.BoardVO"/>
+ <typeAlias alias="replyVO" type="kr.or.ddit.board.vo.ReplyVO"/>
+
+ <select id="selectAll" resultClass="boardVO">
+   select * from board order by seq desc
+ </select>
+ 
+ <insert id="insertBoard" parameterClass="boardVO">
+ 	insert into board values (
+ 		board_seq.nextval, #subject#, #writer#, #mail#, #password#, #content#, 0, #wip#, sysdate   
+ 	)
+ 	<selectKey keyProperty="seq" resultClass="int">
+ 		select board_seq.currval from dual
+ 	</selectKey>
+ 
+ </insert>
+ 
+   <delete id="deleteBoard" parameterClass="int">
+      delete from board where seq = #data#
+   </delete>
+ 
+ 	<insert id="insertReply" parameterClass="replyVO">
+ 		insert into reply values(
+ 			REPLY_SEQ.nextval,
+ 			#bonum#,
+ 			#name#,
+ 			#cont#,
+ 			sysdate
+ 		)
+ 		<selectKey keyProperty="renum" resultClass="int">
+ 			select REPLY_SEQ.currval from dual
+ 		</selectKey>
+ 	</insert>
+ 	
+ 	<select id="listReply" parameterClass="int" resultClass="replyVO">
+ 		select * from reply
+ 		where bonum	= #data#
+ 	</select>
+ 	
+ 	<delete id="deleteReply" parameterClass="int">
+ 		delete from reply where renum = #data#
+ 	</delete>
+ 	
+ 	<update id="modifyReply" parameterClass="Map">
+ 		update reply set cont = #cont# where renum = #renum#
+ 	</update>
+ 	
+ 
+</sqlMap>
+
+ 
+
+
+
+
+
+

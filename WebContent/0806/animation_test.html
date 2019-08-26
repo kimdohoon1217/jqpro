@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<script type="text/javascript">
+	$(function (){
+		$('#left').click(function(){
+			//바로 작아지고 움직여진다(1)
+			$('img').animate({ left : '+=100px' , width : "+=30px"}, 1000);
+		});
+		
+		$('#right').click(function(){
+// 			$('img').animate({ right : '+=100px'}, 1000);
+			$('img').animate({ left : '-=100px'}, 1000)
+					//딜레이를 주는법			
+					.delay(1000)
+					//애는 작아지고 (1)/ 움직이고 한다(2) 
+					.animate({ width : '-=30px'}, 500);
+		});
+		
+		$('#op').click(function(){
+			
+			
+			a = setInterval(function() {
+				$('img').animate({ left : '+=100px'}, 500)
+						.animate({ opacity : '-=0.8'}, 500)
+						.delay(500)
+						.animate({ left : '-=100px'}, 500)
+						.animate({ opacity : '+=0.8'}, 500);
+			}, 1000)
+			
+		});
+		
+	});
+</script>
+<style>
+	img{
+		text-align : center;
+		width : 100px;
+		height : 100px;
+		position : relative; 
+	}
+</style>
+</head>
+<body>
+<pre>
+	<h3>animation</h3>
+	- animate()메서드를 이용 <br>
+	- css속성과 millisec단위의 지속시간이 매개변수로 온다 <br>
+	.animate(properties, duration, easing, function() { }) <br>
+	- left : 100px : 왼쪽좌표를 100px로 변경, 오른쪽으로 이동하는 효과<br>
+	- 이동하는 대상에 position 속성을 style에 설정해야한다.<br>
+	
+</pre>
+	<button id = "left"type = "button">right 로이동한다</button>
+	<button id = "right"type = "button">left 로이동한다</button>
+	<button id = "op"type = "button">이동/투명도</button>
+	<br><br>
+	<img src = "../images/image.5.jpg">
+</body>
+</html>

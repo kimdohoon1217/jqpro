@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src = "../js/regcheck.js"></script>
+
+<script type="text/javascript">
+	$(function (){
+		
+		//중복검사
+		$("#btnId").click(function(){
+			//입력한 id값을 가져온다
+// 			idval = $("#id").val();
+			
+			if(idtest()){
+				//공백검증, 길이검증, 정규식검증 통과
+				$.ajax({
+					url : '/jqpro/MemberIdCheck',
+					type : 'get',
+					data : { "id" : idval },
+					dataType : 'json',
+					success : function(datas){
+						$("#idchk").html(datas.res).css('color', 'red');
+					},
+					error : function(xhr){
+						alert("상태 : " + xhr.status);
+					}
+				});
+			}
+			
+		});
+		
+		$("#searchDong").click(function(){
+			//입력한동을 가져온다
+			dongvalue = $("#dong").val();
+			
+			if(dongtest()){
+				$.ajax({
+					
+					url : '/jqpro/DongSelect',
+					type : 'post',
+					data : "dong="+dongvalue, //{"dong" : dongvalue}
+					dataType: "json",
+					success: function(datas){
+						code = "<table class ='table table-bordered' border='1'>";
+						code += "<tr><td>우편번호</td><td>주소</td><td>번지</td></tr>"
+						$.each(datas, function(i, v) {
+							code += "<tr class='ziptr'>";
+							code += "<td>" + v.zipcode + "</td>";
+							code += "<td>" + v.addr + "</td>";
+							code += "<td>" + v.bunji + "</td>";
+							code += "</tr>";
+							
+						})
+						code += "</table>";
+						$("#result").html(code);
+						
+					},
+					error: function(xhr){
+						alert("상태 :" + xhr.status);
+					}
+					
+				});
+				
+			}
+			
+			
+			//동검색 결과에서 클릭했을때 - delegate방식
+			
+		});
+		$('#result').on('click', '.ziptr', function(){
+			
+			zipcode = $('td:eq(0)' , this).text();
+			addr = $('td:eq(1)' , this).text();
+			
+			//form에다가 선택한 tr(행)의 값(우편번호, 주소)을 출력
+			$('#postal').val(zipcode);
+			$('#addr').val(addr);
+			
+			//모달창 닫기
+			$("#myModal").modal('hide');
+			
+		});
+		
+		//모달창 닫기 이벤트 - 모달창닫을때 모달창의 내용을 지우기
+		$("#myModal").on('hide.bs.modal', function(){
+			
+			$('#result').empty();
+			$('#dong').val("");
+			$(".modal-backdrop").remove();
+			
+		})
+		
+		//제출버튼 클릭 - 전송, 저장
+		$("#btnjoin").click(function(){
+			/* //입력한 모든 값을 가져온다.
+			idval = $("#id").val();
+			nameval = $("#name").val();
+			birval = $("#bir").val();
+			pwdval = $("#pwd").val();
+			phoneval = $("#phone").val();
+			emailval = $("#email").val();
+			postalval = $("#postal").val();
+			addrval = $("#addr").val();
+			detailval = $("#detailAddr").val();
+			
+			
+			//스트링타입으로 만들때는 공백없이 &를 이용해서 만든다
+// 			dataval = "id="+idval + "&name="+nameval + "&bir="+birval + "&phone="+phoneval + "&email=" + emailval */
+			
+	/* 		dataval = {
+					"id" : idval,
+					"name" : nameval,
+					"bir" : birval,
+					"pwd" : pwdval,
+					"phone" : phoneval,
+					"email" : emailval,
+					"postal" :postalval,
+					"addr" : addrval,
+					"datailaddr" : detailval
+			} */
+			
+			//name 이 vo랑 일치해야한다?
+// 			dataval = $("#ff").serialize();
+			
+			//조건에안맞으면 버튼 을 나가버림
+			if(!regtest()) return;
+			
+			
+			dataval = $("#ff").serializeArray();
+			console.log(dataval);
+			
+			$.ajax({
+				url : '/jqpro/InsertMember',
+				type : 'post',
+				data : dataval,
+				dataType : 'json',
+				success : function(res){
+					$('#joinres').html(res.res).css('color', 'red');
+				},
+				error : function(xhr){
+					alert("상태  : " + xhr.status);
+				}
+			})
+			
+			
+		});
+		
+		
+		$("#myBtn").on('click', function(){
+			$("#myModal").modal("show");
+		});
+		
+	});
+</script>
+<style>
+	label{
+		display : inline-block;
+		width: 100px;
+	}
+	
+	.long{
+		width: 300px;
+	}
+	
+	.ziptr:hover{
+		background : lime;
+	}
+</style>
+</head>
+<body>
+    <div class="box">
+        <form name="ff" id = "ff">
+            <h1>회원정보입력</h1>
+            <div>
+                <label>아이디 : </label><input type="text" id="id" name = "mem_id">
+                    <button type="button" id="btnId" class ="btn">중복검사</button>
+                    <span id = "idchk"></span>
+                <hr>
+                <label>이름 : </label><input type = "text" id= "name" name = "mem_name"><br>
+                <label>생년월일  : </label><input type = "date" id = "bir" name = "mem_bir" placeholder="1999-01-01"><br>
+                <label>비밀번호 : </label><input type="password" name = "mem_pass" id="pwd"><br>
+                <hr>
+                <label>휴대폰 번호 :</label><input type="tel" name = "mem_hp" id="phone"placeholder="010-0000-0000">
+                <hr>
+                <label>이메일 : </label><input type="email" name = "mem_mail" id="email" placeholder="asd123@naver.com">
+                <hr>
+                <label>우편번호</label><input type= "text" name = "mem_zip" id = "postal">
+                	<button type = "button" id = "myBtn">번호검색</button><br>
+                <label>주소 :</label><input class = "long" name = "mem_add1" type = "text" id = "addr"><br>
+                <label>상세 주소 :</label><input  class = "long" name = "mem_add2" type = "text" id = "detailAddr"><br><br>
+                <button type="button" id = "btnjoin" class="btn">제출</button>
+                <button type="button" class="btn">초기화</button>
+                <span id = "joinres"></span>
+            </div>
+            
+        </form>
+		<!-- Modal -->
+		<div id="myModal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">우편번호 찾기</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>찾고자 하는 동을 입력하세요.</p>
+		        <input type = "text" id = "dong" name = "dong">
+		        <button type = "button" id = "searchDong">검색</button>
+		        <br>
+		        <div id = "result"></div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+    </div>
+
+</body>
+
+</html>

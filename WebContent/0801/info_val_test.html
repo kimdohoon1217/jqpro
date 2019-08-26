@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<script type="text/javascript">
+	$(function (){
+		$('#btnview').click(function(){
+			res = "";
+			
+			res += "이름 : " + $('#user').val() + "<br>";
+			res += "성별 : " + $(':checked').val() + "<br>";
+			res += "소개 : " + $('#intro').val() + "<br>";
+// 			res += "직업 : " + $('#work').val();
+			res += "직업 : ";
+			$('#work option:selected').each(function(){
+				res += $(this).val();
+			})
+			
+			$('#result1').html(res);
+			
+		})
+		
+		
+		$('#btnchange').click(function(){
+			//button은 전송기능이 있다 - 전송기능을 제거 하기 위해서
+			//button type = button으로 하거나
+			//event.preventDefault()
+			
+			event.preventDefault();
+			
+			vname = prompt("이름입력");
+			//setter해주는법
+			$('#user').val(vname);
+			
+			//리턴은 강제종료 이므로 종료시점을 잘맞춰야한다.
+// 			return false;
+			
+		});
+		
+		$('a').click(function(){
+			age = prompt("나이를 입력하세요");
+			if(age < 12){
+				event.preventDefault();
+				alert("대상이 아닙니다.");
+			}
+		})
+		
+		
+		
+	});
+	
+</script>
+</head>
+<body>
+	<div class ="box">
+	
+		<a href ="https://www.naver.com">네이버</a>
+	
+		<form>
+			<label for="user">이름</label>
+			<input type="text" id="user" value="korea"><br>
+			
+			<label >성별</label> 
+			<input type="radio" id=“gend" name="gend" value="남자" checked >남자
+			<input type="radio" id=“gend" name="gend" value="여자"  >여자<br>
+			
+			<label for="intro">소개</label> 
+			<textarea id="intro" cols="40" rows="4"></textarea> <br>
+			
+			<label for="work">직업</label>
+			<!-- <select id="work" mutiple size=3 > -->
+			<select id ="work">
+			   <option value="programmer">프로그래머</option>
+			   <option value="progammer">프로게이머</option>
+			   <option value="whitehand">백수</option>
+			</select>
+			<br>
+			
+			<!-- 버튼을 타입없이 설정하면 전송버튼이므로  -->
+			<!-- 버튼에 버튼타입이라고 설정해주어야 전송이안되고 출력이됨 -->
+			<button type = "button" id="btnview">조사하기 </button>
+			<button id="btnchange">이름변경 </button>
+		</form>
+		
+		 <div id = "result1"></div>
+		 <div id = "result2"></div>
+	</div>
+</body> 
+</html>

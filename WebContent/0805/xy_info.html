@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<script type="text/javascript">
+	$(function (){
+		
+		//실행된문서니깐 document로 해도된다
+// 		$('*').mousemove(function(){
+		$(document).mousemove(function(e){
+			res = "x : " + e.pageX + ", y : " +  e.pageY;
+			
+			$('div').html(res);
+			
+			//xy좌표값이 200 200이면 새로운 이미지를 추가한다.
+			var x = e.pageX;
+			var y = e.pageY;
+			if(x == 200 && y == 200){
+					imgtag = $('<img>', {
+						'src' : '../images/아메리카노.jpg',
+						'width' : '200px',
+						'height' : '200px'
+						})
+					$(imgtag).appendTo('body');
+				}
+			
+		})
+	
+	});
+</script>
+<style>
+	div{
+		height: 50px;
+		padding : 10px;
+		border : 1px solid red;
+	}
+</style>
+</head>
+<body>
+	<div></div>
+</body>
+</html>

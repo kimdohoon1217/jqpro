@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src = "../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function (){
+		//전체 p를 선택
+		$('p').css('color', 'red');
+		
+		//document 에 forms 는 내장객체
+		// forms[1] 에 잇는 forms 객체선택
+		$('p', document.forms[1]).css('font-size', '2.0em');
+		
+		$('div').on('click', function(){
+			//자손 부모 이렇게 써야됨
+			$('p', this).css('font-size', '+=10px');
+		})
+	})
+
+</script>
+<style>
+	/*부모 (띄움) 후손  */
+	h1 div{
+	
+	}
+	h1 #aa{
+	
+	}
+	/* 붙이면 자기자신 */
+	h2#bb{
+	}
+</style>
+</head>
+<body>
+	<form>
+		<div>
+			<p>무궁화 꽃이 피었습니다.</p>
+		</div>
+	</form>
+	
+	<form>
+		<p>장미꽃이 피었습니다.</p>
+	</form>
+	
+	<form>
+		<div id = "d1">
+			<p>졸지 말고 꽃구경 합시다.</p>
+		</div>
+	</form>
+	
+	
+</body>
+</html>

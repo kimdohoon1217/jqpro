@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+<style>
+	div{
+		width:300px;
+		height:200px;
+		background-color:yellow; 
+	}
+
+</style>
+<script type="text/javascript">
+	$(function (){
+		
+		//event객체는 object다
+		$('div').mousedown(function(event){
+			res = "target : " + event.target.tagName;
+			res += "pageXY : " + event.pageX + "," + event.pageY + "\n";
+			res += "screenXY : " + event.screenX + "," + event.screenY+ "\n";
+			res += "button : " + event.button;
+			console.log(res);
+			
+			//왼쪽버튼을 누르면 : 배경색변경
+			if(event.button == 0){
+				$(this).css('background', 'green');
+			}
+			
+			//가운데 휠을 누르면 : Hello 출력
+			else if(event.button == 1){
+				$(this).html("<h1>Hello</h1>").css('color', 'white');
+				//0과 같은 속성값은 적용되지않는다??
+// 				$('div').css('background', 'green');
+			}
+			
+			//오른쪽버튼을 누르면 : 테두리를 설정하라
+			else if(event.button == 2){
+				$(this).css('border', '5px solid blue');
+			}
+			
+		});
+		
+		$('button').click(function(event){
+			console.log("target : " +  event.target.tagName);
+		})
+	
+	});
+</script>
+</head>
+<body>
+	<div> </div>
+	 <br>
+	 <button> 버튼 </button>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<script type="text/javascript">
+	$(function (){
+		 $('input[type=button]').click(function(){
+			 res="";
+			 		//a = :checkbox:checked[i]
+			 		
+// 			 $('input[type=checkbox]:checked').each(function(i, a) { });
+			 $(':checkbox:checked').each(function(i, a){
+// 				 res += $(a).val() + " ";
+				 res += $(this).val() +  " ";
+			 })
+			 
+			 
+// 			 document.getElementById('result1').innerHTML = res;
+			 $('#result1').html(res);
+			 
+			 //선택자 | 필터
+// 			 $('input[type=checkbox]:checked').val()
+			 
+			 //form양식에서 선택자 | 필터
+// 			 $(':checkbox:checked').val()
+			 
+		 })
+		 
+		 //change라는 메서드 사용
+		 $('#spring').change(function(){
+			 
+			 res = "";
+			//:selected를 이용해서 
+		 	//$('select[name=spring] option:selected')
+			$('#spring option:selected').each(function (){
+				res += $(this).val() + "<br>";
+			})
+			
+			$('#result2').html(res);
+			
+		 })
+		 
+		 
+		
+	});
+</script>
+</head>
+<body>
+
+	<div class= "box">
+		<h3>:checked</h3>
+		- $('input[type=checkbox]:checked')<br>
+		- $(':checkbox:checked')<br>
+		- 선택한 요소를 대상으로 반복문 실행<br>
+		- 반복문 안에서 현재 실행대상이 되는 객체를 this로 받는다<br>
+		
+		<div>
+		
+			<form>
+				취 미 :
+				<input type="checkbox" name="hobby" value="여행" checked >여행
+				<input type="checkbox" name="hobby" value="장기">장기
+				<input type="checkbox" name="hobby" value="바둑">바둑
+				<input type="checkbox" name="hobby" value="독서" >독서
+				<input type="checkbox" name="hobby" value="낚시">낚시<br><br>
+				<input type="button" value="전송">
+			</form>
+			
+		</div>
+		
+		<div id ="result1"></div>
+		
+	</div>
+	
+	
+	<div class= "box">
+		<h3>:selected </h3>
+		- select/option에서 선택한 요소를 선택한다.<br>
+		- select에서 change이벤트를 수행 <br>
+		- 선택한 요소를 대상으로 반복문 실행<br>
+		- 반복문 안에서 현재 실행대상이 되는 객체를 this로 받는다<br>
+		- multiple은 여러값을 가지게할수있는 속성
+		
+		<div>
+		
+			<form>
+				봄소식 : 
+				<select name="spring" id="spring" multiple size="6">
+					<option  >개나리</option>
+					<option selected>진달래</option>
+					<option>민들레</option>
+					<option selected>벚꽃</option>
+					<option>목련</option>
+					<option>철쭉</option>
+				</select>
+			</form>
+			
+		</div>
+		<div id ="result2"></div>
+	</div>
+	
+	
+</body>
+</html>

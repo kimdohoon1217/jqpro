@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/myStyle.css">
+
+<script type="text/javascript">
+	$(function (){
+		$('p').click(function(){
+			
+				if($(this).parent().is('div')){
+					//부모의 테두리를 설정하시오
+					$(this).parent().css('border', '3px dashed red');
+				}else {
+					alert("작업대상이없다고로고로고로케");
+				}
+				
+		})
+		
+	});
+</script>
+</head>
+<body>
+	<pre>
+		- p태그의 문자열을 클릭한다 
+		- 부모가 div인지 비교 한다 $(this).parent().is()
+		- 부모가 div가 맞으면 div에 테두리를 설정한다.
+		- 맞지않으면 alert창을 띄워준다.
+	</pre>
+	<div>
+		<p>그놈의 무궁화 피었다</p>
+	</div>
+	
+	<p>지옥의 금요일 입니다.</p>
+
+	<div>
+		<p>제발 11시에끝내주세요 밥먹게</p>
+	</div>
+</body>
+</html>
